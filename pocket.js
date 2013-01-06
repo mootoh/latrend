@@ -14,11 +14,8 @@ function getRequestToken(consumerKey, callback) {
   };
 
   var req = https.request(options, function(res) {
-    console.log('status: ' + res.statusCode);
     res.on('data', function(chunk) {
-      console.log('body: ' + chunk);
       body = JSON.parse(chunk);
-      console.log(body);
       if (!body || !body['code'])
         callback('error in parsing response JSON');
       else
@@ -27,7 +24,6 @@ function getRequestToken(consumerKey, callback) {
   });
 
   req.on('error', function(e) {
-    console.log('error: ' + e);
     callback(e);
   });
 
@@ -56,11 +52,8 @@ function getAccessToken(consumerKey, requestToken, callback) {
   };
 
   var req = https.request(options, function(res) {
-    console.log('status: ' + res.statusCode);
     res.on('data', function(chunk) {
-      console.log('body: ' + chunk);
       body = JSON.parse(chunk);
-      console.log(body);
       if (!body || !body['code'])
         callback('error in parsing response JSON');
       else
@@ -69,7 +62,6 @@ function getAccessToken(consumerKey, requestToken, callback) {
   });
 
   req.on('error', function(e) {
-    console.log('error: ' + e);
     callback(e);
   });
 
@@ -95,19 +87,15 @@ function get(consumerKey, accessToken, callback) {
 
   var responseData = '';
   var req = https.request(options, function(res) {
-    console.log('status: ' + res.statusCode);
     res.on('data', function(chunk) {
-      console.log('data: ' + chunk);
       responseData += chunk;
     });
     res.on('end', function() {
-      console.log('end');
       callback(null, responseData);
     })
   });
 
   req.on('error', function(e) {
-    console.log('error: ' + e);
     callback(e);
   });
 
@@ -115,7 +103,6 @@ function get(consumerKey, accessToken, callback) {
     consumer_key: consumerKey,
     access_token: accessToken
   };
-  console.log('request body: ' + JSON.stringify(body));
 
   req.write(JSON.stringify(body));
   req.end();
