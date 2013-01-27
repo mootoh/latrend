@@ -29,7 +29,7 @@ block content
       div.span4
         script
         - var latest = stats[0];
-        - var prev = stats[1];
+        - var prev = stats[1] ? stats[1] : {unread:0, archived:0, total:0};
 
         div
           h2 Latest Update
