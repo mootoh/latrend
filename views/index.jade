@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div.container
+    div.navbar
+      div.navbar-inner
+        a.brand Later
+        ul.nav
+          li.active
+            a You
+          li
+            a Setting
+
+    div
+      h2 Latest
+      ul
+        li Added Unread: #{unread}
+        li Archived: #{archived}
+        li Total: #{total}
+        li Updated: #{date}
+    div
+      h2 Diff from last Update
+      ul
+        li Unread:
+        li Archived:
+        li Total:
