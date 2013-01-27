@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div.container
+  header
     div.navbar
       div.navbar-inner
         a.brand Later
@@ -11,6 +11,7 @@ block content
           li
             a Setting
 
+  div.container
     - var latest = stats[0];
     div
       h2 Latest
