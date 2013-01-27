@@ -15,13 +15,18 @@ block content
 
   div.container
     div.row
-      div.span5#chart_everything
-        div#chart_container
-          div#y_axis
-          div#chart
-        div#legend
+      div.span8
+        div.chart_container#count
+          div.y_axis
+          div.chart
+          div.legend
 
-      div.span7
+        div.chart_container#velocity
+          div.y_axis
+          div.chart
+          div.legend
+
+      div.span4
         script
         - var latest = stats[0];
         - var prev = stats[1];

@@ -1,3 +1,26 @@
+function renderGraph(series, name) {
+  var graph = new Rickshaw.Graph({
+    element: document.querySelector('#' + name + " .chart"),
+    renderer: 'line',
+    stroke: true,
+    series: series,
+  });
+  var x_axis = new Rickshaw.Graph.Axis.Time( { graph: graph } );
+  var y_axis = new Rickshaw.Graph.Axis.Y({
+      graph: graph,
+      orientation: 'left',
+      tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+      element: document.querySelector('#' + name + ' .y_axis'),
+  });
+
+  var legend = new Rickshaw.Graph.Legend({
+    element: document.querySelector('#' + name + ' .legend'),
+    graph: graph
+  });
+
+  graph.render();
+}
+
 $.ajax({
   url: "/stats",
   success: function(response) {
@@ -23,34 +46,39 @@ $.ajax({
     archives = makeSeries(archives);
     totals = makeSeries(totals);
 
-    var graph = new Rickshaw.Graph({
-    element: document.querySelector("#chart"),
-    renderer: 'area',
-    width: 230,
-    stroke: true,
-    series: [{
+    var unreadsVelocity = [];
+    for (var i=1; i<unreads.length; i++) {
+      unreadsVelocity[i-1] = {x:unreads[i].x, y:(unreads[i].y - unreads[i-1].y)};
+    }
+
+    var archivedVelocity = [];
+    for (var i=1; i<archives.length; i++) {
+      archivedVelocity[i-1] = {x:archives[i].x, y:(archives[i].y - archives[i-1].y)};
+    }
+
+    var countSeries = [{
       name: 'Unread',
       data: unreads,
       color: 'steelblue'
-    }, {
+    },
+    {
       name:'Archived',
       data: archives,
       color: 'lightblue'
     }]
-    });
-    var x_axis = new Rickshaw.Graph.Axis.Time( { graph: graph } );
-    var y_axis = new Rickshaw.Graph.Axis.Y({
-        graph: graph,
-        orientation: 'left',
-        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-        element: document.querySelector('#y_axis'),
-    });
 
-    var legend = new Rickshaw.Graph.Legend({
-      element: document.querySelector('#legend'),
-      graph: graph
-    });
+    var velocitySeries = [{
+      name:'Unread Velocity',
+      data: unreadsVelocity,
+      color: 'steelblue'
+    },
+    {
+      name:'Archived Velocity',
+      data: archivedVelocity,
+      color: 'lightblue'
+    }];
 
-    graph.render();
+    renderGraph(countSeries, 'count');
+    renderGraph(velocitySeries, 'velocity');
   }
 });
