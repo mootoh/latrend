@@ -22,20 +22,15 @@ block content
         div#legend
 
       div.span7
+        script
         - var latest = stats[0];
+        - var prev = stats[1];
 
         div
-          h2 Latest
+          h2 Latest Update
+          - function diff(num) { if (num > 0) return '+' + num; if (num < 0) return '-' + num; return num; }
           ul
-            li Added Unread: #{latest.unread}
-            li Archived: #{latest.archived}
-            li Total: #{latest.total}
+            li Added Unread: #{latest.unread} (#{diff(latest.unread - prev.unread)})
+            li Archived: #{latest.archived} (#{diff(latest.archived - prev.archived)})
+            li Total: #{latest.total} (#{diff(latest.total - prev.total)})
             li Updated: #{latest.date}
-        div
-          h2 Diff from last Update
-          - var prev = stats[1];
-          ul
-            li Unread: #{latest.unread - prev.unread}
-            li Archived: #{latest.archived - prev.archived}
-            li Total: #{latest.total - prev.total}
-            li Diff From: #{new Date(prev.date)}
