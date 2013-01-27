@@ -1,7 +1,7 @@
 // test_counter.js
 var assert = require('assert')
   , counter = require('../lib/counter')
-  , config = require('../lib/config')
+  , config = require('../config')
   , async = require('async');
   ;
 
