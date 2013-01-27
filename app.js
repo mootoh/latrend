@@ -23,10 +23,11 @@ app.configure('development', function() {
 });
 
 app.get('/', function(req, res) {
-  pocket.latestStat(function(err, stat) {
-    stat.title = 'Yay';
-    stat.date = new Date(stat.date * 1000);
-    res.render('index', stat);
+  pocket.statInRange(0, 7, function(err, stats) {
+    stats.map(function(stat) {
+      stat.date = new Date(stat.date * 1000);
+    })
+    res.render('index', {title:'Pocket', stats:stats});
   })
 });
 

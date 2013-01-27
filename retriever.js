@@ -7,36 +7,44 @@ var pocket = require('./lib/pocket')
 async.waterfall([
   function(cb) { // last update
     pocket.latestStat(function(err, stat) {
-      cb(err, stat ? stat.date : null);
+      // cb(err, stat ? stat.date : null);
+      // retrieve full list every time for now,
+      // because we cannot know which item is archived or deleted from unread list easily
+      cb(err, null);
     });
   },
   function(since, cb) {
-    console.log(since);
-    options = {state:'all'};
+    options = {
+      state: 'all',
+      detailType: 'simple'
+    };
     if (since)
-      options.since = since;
+      options.since = parseInt(since)+1;
 
     pocket.retrieve(config.CONSUMER_KEY, config.ACCESS_TOKEN, function(err, response) {
       var unread = 0,
-        archived = 0;
+        archived = 0,
+         deleted = 0;
 
       for (var k in response.list) {
         if (!response.list.hasOwnProperty(k))
           continue;
 
         var entry = response.list[k];
-        console.log(k + ': ' + entry);
         if (entry.status === '0') // unread or added
           unread++;
         else if (entry.status === '1') // archive
           archived++;
+        else if (entry.status === '2') // deleted
+          deleted++;
       };
 
       var stat = {
         date:response.since,
         unread: unread,
         archived: archived,
-        total: unread + archived
+        deleted: deleted
+        // total: unread + archived
       };
       pocket.addStat(stat, function(err) {
         cb(err, stat.date);
@@ -44,6 +52,5 @@ async.waterfall([
     }, options);
   }
 ], function(err, results) {
-  console.log(results);
   process.exit();
 });

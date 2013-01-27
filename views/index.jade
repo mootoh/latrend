@@ -11,16 +11,19 @@ block content
           li
             a Setting
 
+    - var latest = stats[0];
     div
       h2 Latest
       ul
-        li Added Unread: #{unread}
-        li Archived: #{archived}
-        li Total: #{total}
-        li Updated: #{date}
+        li Added Unread: #{latest.unread}
+        li Archived: #{latest.archived}
+        li Total: #{latest.total}
+        li Updated: #{latest.date}
     div
       h2 Diff from last Update
+      - var prev = stats[1];
       ul
-        li Unread:
-        li Archived:
-        li Total:
+        li Unread: #{latest.unread - prev.unread}
+        li Archived: #{latest.archived - prev.archived}
+        li Total: #{latest.total - prev.total}
+        li Diff From: #{new Date(prev.date)}
