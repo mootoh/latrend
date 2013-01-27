@@ -31,6 +31,16 @@ app.get('/', function(req, res) {
   })
 });
 
+app.get('/stats', function(req, res) {
+  pocket.statInRange(0, 7, function(err, stats) {
+    /*
+    stats.map(function(stat) {
+      stat.date = stat.date * 1000;
+    })
+*/
+    res.send(stats);
+  })
+})
 /*
 app.get('/delta*', function(req, res) {
 	res.setHeader('Content-Type', 'application/json');
