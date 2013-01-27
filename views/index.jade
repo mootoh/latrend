@@ -14,27 +14,28 @@ block content
             a(href='http://github.com/mootoh/latrend') Code
 
   div.container
-    - var latest = stats[0];
-    div
-      h2 Latest
-      ul
-        li Added Unread: #{latest.unread}
-        li Archived: #{latest.archived}
-        li Total: #{latest.total}
-        li Updated: #{latest.date}
-    div
-      h2 Diff from last Update
-      - var prev = stats[1];
-      ul
-        li Unread: #{latest.unread - prev.unread}
-        li Archived: #{latest.archived - prev.archived}
-        li Total: #{latest.total - prev.total}
-        li Diff From: #{new Date(prev.date)}
+    div.row
+      div.span5#chart_everything
+        div#chart_container
+          div#y_axis
+          div#chart
+        div#legend
 
-    hr
+      div.span7
+        - var latest = stats[0];
 
-    div#chart_everything
-      div#chart_container
-        div#y_axis
-        div#chart
-      div#legend
+        div
+          h2 Latest
+          ul
+            li Added Unread: #{latest.unread}
+            li Archived: #{latest.archived}
+            li Total: #{latest.total}
+            li Updated: #{latest.date}
+        div
+          h2 Diff from last Update
+          - var prev = stats[1];
+          ul
+            li Unread: #{latest.unread - prev.unread}
+            li Archived: #{latest.archived - prev.archived}
+            li Total: #{latest.total - prev.total}
+            li Diff From: #{new Date(prev.date)}

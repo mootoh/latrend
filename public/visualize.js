@@ -26,7 +26,7 @@ $.ajax({
     var graph = new Rickshaw.Graph({
     element: document.querySelector("#chart"),
     renderer: 'area',
-    width: 300,
+    width: 230,
     stroke: true,
     series: [{
       name: 'Unread',
