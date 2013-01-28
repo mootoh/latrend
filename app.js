@@ -23,11 +23,14 @@ app.configure('development', function() {
 });
 
 app.get('/', function(req, res) {
+  var moment = require('moment');
+
   pocket.statInRange(0, 7, function(err, stats) {
     stats.map(function(stat) {
       stat.date = new Date(stat.date * 1000);
+      stat.fromNow = moment(stat.date).fromNow();
     })
-    res.render('index', {title:'Pocket', stats:stats});
+    res.render('index', {title:'Laters ±', stats:stats});
   })
 });
 
