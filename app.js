@@ -36,20 +36,9 @@ app.get('/', function(req, res) {
 
 app.get('/stats', function(req, res) {
   pocket.statInRange(0, 7, function(err, stats) {
-    /*
-    stats.map(function(stat) {
-      stat.date = stat.date * 1000;
-    })
-*/
     res.send(stats);
   })
 })
-/*
-app.get('/delta*', function(req, res) {
-	res.setHeader('Content-Type', 'application/json');
-	res.send(JSON.stringify({'added':1, 'archived':2, params:req.query}));
-});
-*/
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));
