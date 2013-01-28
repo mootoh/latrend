@@ -68,12 +68,12 @@ $.ajax({
     }]
 
     var velocitySeries = [{
-      name:'Unread Velocity',
+      name:'Unread',
       data: unreadsVelocity,
       color: 'steelblue'
     },
     {
-      name:'Archived Velocity',
+      name:'Archived',
       data: archivedVelocity,
       color: 'lightblue'
     }];
