@@ -5,6 +5,11 @@
     "private": true,
     "dependencies": {
         "express": "3.x",
+        "jade": "*",
+        "redis": "*",
+        "async": "*",
+        "chai": "*",
+        "moment": "*",
         "redis": "*"
     }
 }
