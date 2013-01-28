@@ -1,7 +1,7 @@
-function renderGraph(series, name) {
+function renderGraph(series, name, renderer) {
   var graph = new Rickshaw.Graph({
     element: document.querySelector('#' + name + " .chart"),
-    renderer: 'line',
+    renderer: renderer,
     stroke: true,
     series: series,
   });
@@ -78,7 +78,8 @@ $.ajax({
       color: 'lightblue'
     }];
 
-    renderGraph(countSeries, 'count');
-    renderGraph(velocitySeries, 'velocity');
+    renderGraph(countSeries, 'count', 'line');
+    if (velocitySeries.length > 0)
+      renderGraph(velocitySeries, 'velocity', 'line');
   }
 });
