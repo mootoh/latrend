@@ -44,7 +44,6 @@ async.waterfall([
         unread: unread,
         archived: archived,
         deleted: deleted
-        // total: unread + archived
       };
       pocket.addStat(stat, function(err) {
         cb(err, stat.date);
